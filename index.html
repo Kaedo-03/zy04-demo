@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>zy04</title>
+	</head>
+	<body>
+		<form>
+		姓名:<input type="text" id="name"/>
+		<br>
+		密码:<input type="password" id="key"/>
+		<br>
+		性别:<input type="radio" value="男" name="sex"/>男
+		<input type="radio" value="女" name="sex"/>女
+		<br>
+		血型:<input type="radio" name="blood"/>A
+		<input type="radio" name="blood"/>B
+		<input type="radio" name="blood"/>O
+		<input type="radio" name="blood"/>AB
+		<br>
+		性格:<input type="checkbox" name="character"/>热情大方
+		<input type="checkbox" name="character"/>温柔体贴
+		<input type="checkbox" name="character"/>多愁善感
+		<br>
+		文件:<input type="text" id="doc" />
+		<input type="file" id="upload" onchange="getfile(value)"/>
+		<br>
+		简介:<input type="text"/>
+		<br>
+		城市:<select id="city">
+			<option value="">-请选择-</option>
+			<option value="1">北京市</option>
+			<option value="2">天津市</option>
+			<option value="3">成都市</option>
+		</select>
+		<br>
+		<input type="button" value="提交" onclick="notnull()"/>
+		<input type="reset"  value="重置"/>
+		</form>
+	</body>
+	<script>
+		function notnull(){
+			var namex=document.getElementById("name").value;
+			var key=document.getElementById("key").value;
+			if(namex.length==0||key.length==0){
+				alert("用户名或密码不能非空");
+				return false;
+			}
+			else if(key.length<6){
+				alert("密码必须大于六位");
+				return false;
+			}
+			var sex=document.getElementsByName("sex");
+			var flag=false;
+			for(var i=0;i<sex.length;i++){
+				if(sex[i].checked==true){
+					flag=true;
+				}
+			}
+			if(flag==false){
+				alert("您还未选性别");
+				return false;
+			}
+			var blood=document.getElementsByName("blood");
+			var flag=false;
+			for(var i=0;i<blood.length;i++){
+				if(blood[i].checked){
+					flag=true;
+				}
+			}
+			if(flag==false){
+				alert("您未选择血型");
+				return false;
+			}
+			var character=document.getElementsByName("character");
+			var check_val=[];
+			for(var i=0;i<character.length;i++){
+				if(character[i].checked){
+					check_val.push(character[i].value);
+				}
+			}
+			if(check_val.length==0){
+				alert("您未选择性格");
+				return false;
+			}
+			var city = document.getElementById('city');
+			var index = city.selectedIndex;
+			var cityShow = city.options[index].value;
+			alert("提交成功");
+		}
+function getFile(value){
+        var doc = document.getElementById("doc");
+        var upload = document.getElementById("upload");
+        var fileName = upload.files[0].name;
+        var filePath = upload.value;
+        doc.value = fileName;
+        console.log(fileName);
+        console.log(filePath);
+		}
+	</script>
+</html>
